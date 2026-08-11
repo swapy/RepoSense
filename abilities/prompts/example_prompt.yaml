@@ -1,0 +1,25 @@
+id: "repo-sense-001"
+name: "Dependency Risk Assessment"
+description: "Assess repository dependencies and identify evidence-backed risk findings."
+prompt: "Review the repository and identify dependency risk issues. Provide evidence such as file paths and line numbers for each finding. Label uncertain cases as Potential and avoid suggesting direct code changes."
+pillar: "Security"
+capability: "Dependency risk assessment"
+topic: "Dependencies"
+use_cases:
+  - "vulnerability review"
+  - "dependency configuration analysis"
+automation_guidance: "Analyze dependency manifests and lockfiles to find outdated or insecure packages."
+impact: "Helps maintain secure dependency management and prevent deployment risks."
+best_practices:
+  - "Focus on package manifests and lockfiles"
+  - "Cite exact file references for findings"
+applicable_languages:
+  - "Python"
+  - "JavaScript"
+confidence: "high"
+evidence_requirements: "Cite file paths and line numbers for each identified issue."
+status: "draft"
+tags:
+  - "security"
+  - "dependencies"
+  - "static analysis"

@@ -1,0 +1,129 @@
+$schema: "https://json-schema.org/draft/2020-12/schema"
+title: "Repo Sense Prompt Metadata Schema"
+type: object
+additionalProperties: false
+required:
+  - id
+  - name
+  - description
+  - prompt
+  - pillar
+  - capability
+  - topic
+  - use_cases
+  - automation_guidance
+  - impact
+  - best_practices
+  - applicable_languages
+  - confidence
+  - evidence_requirements
+  - status
+properties:
+  id:
+    type: string
+  prompt:
+    type: string
+    minLength: 1
+  name:
+    type: string
+  description:
+    type: string
+  pillar:
+    type: string
+  capability:
+    type: string
+  topic:
+    type: string
+  use_cases:
+    type: array
+    items:
+      type: string
+  automation_guidance:
+    type: string
+  impact:
+    type: string
+  best_practices:
+    type: array
+    items:
+      type: string
+  applicable_languages:
+    type: array
+    items:
+      type: string
+  confidence:
+    type: string
+    enum: [high, medium, low]
+  evidence_requirements:
+    type: string
+  status:
+    type: string
+    enum: [draft, review, published, deprecated]
+  tags:
+    type: array
+    items:
+      type: string
+  downloads:
+    type: integer
+    minimum: 0
+  version:
+    type: string
+  change_notes:
+    type: string
+  author:
+    type: string
+  created_at:
+    type: string
+    format: date
+  updated_at:
+    type: string
+    format: date
+  related_prompts:
+    type: array
+    items:
+      type: string
+  recommended_tools:
+    type: array
+    items:
+      type: string
+  severity:
+    type: string
+    enum: [critical, high, medium, low]
+  weight:
+    type: number
+    minimum: 0
+  coverage:
+    anyOf:
+      - type: string
+      - type: number
+  compliance_references:
+    type: array
+    items:
+      type: string
+  validation_examples:
+    type: array
+    items:
+      type: object
+  output_schema:
+    oneOf:
+      - type: object
+      - type: string
+  component_types:
+    type: array
+    items:
+      type: string
+  assessment_strategy:
+    type: string
+  input_hints:
+    type: string
+  example_responses:
+    type: array
+    items:
+      type: string
+  review_status:
+    type: string
+  reviewer:
+    type: string
+  estimated_effort:
+    type: string
+  confidence_rationale:
+    type: string

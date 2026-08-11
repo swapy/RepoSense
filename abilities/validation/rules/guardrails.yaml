@@ -1,0 +1,53 @@
+forbidden_phrases:
+  - "modify repository code"
+  - "patch repository code"
+  - "generate code"
+  - "change the code"
+  - "apply the patch"
+  - "commit the changes"
+  - "write code"
+  - "fix the repository"
+  - "update the repository"
+
+sensitive_terms:
+  - "credentials"
+  - "password"
+  - "secret"
+  - "private key"
+  - "api key"
+  - "token"
+  - "ssn"
+  - "personal data"
+  - "pii"
+  - "social security"
+
+broad_scope_phrases:
+  - "all aspects"
+  - "everything"
+  - "every possible issue"
+  - "full repo audit"
+  - "entire repository"
+  - "all files"
+  - "every file"
+  - "all code"
+  - "complete repository"
+
+evidence_indicators:
+  - "file path"
+  - "line number"
+  - "line numbers"
+  - "evidence"
+  - "configuration snippet"
+  - "config snippet"
+  - "code snippet"
+  - "source location"
+  - "traceback"
+  - "reference"
+
+placeholder_patterns:
+  - "\\{\\{.*?\\}\\}"
+  - "\\<\\<.*?\\>\\>"
+  - "\\{[^\\}]+\\}"
+  - "\\[\\[.*?\\]\\]"
+
+minimum_prompt_length: 40
