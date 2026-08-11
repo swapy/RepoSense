@@ -1,15 +1,31 @@
-# Repo Sense
+# Repo Sense — Software Assessment Framework
 
-Repo Sense is a self-contained prompt validation and evaluation framework aimed at helping teams manage, test, and harden LLM prompts and guardrails. It provides:
+Repo Sense is a repository assessment framework that uses prompt-driven automation and guardrails to evaluate software projects. It combines static validation rules, repository-level architecture checks, and LLM-assisted analysis (used as an assistant, not the target) to produce evidence-based findings about code quality, security, and maintainability.
 
-- Static prompt validation (schema and rule checks)
-- A DAST-style ephemeral evaluation harness that spins up an isolated Ollama container for dynamic testing
-- Architecture-level checks (repository hygiene rules enforced as tests)
-- A lightweight, reproducible test / CI workflow
+Tagline
 
-This repository is designed to run in CI or locally with minimal setup. The project uses `uv` as the build/test driver and pins Python to the 3.11.x series.
+"Automated repository assessments driven by prompts and guardrails — evidence-first, LLM-assisted checks."
+
+Key capabilities
+
+- Static prompt and metadata validation (schema and rule checks)
+- Repository architecture tests enforcing hygiene and policy (no print(), no bare except, no hardcoded secrets, etc.)
+- Integration evaluation harness that runs controlled LLM-assisted analyses when needed
+- CI-ready workflows and reproducible environments (Python 3.11.x, `uv` build driver)
+
+Suggested repository topics/tags
+
+- `software-assessment`
+- `repo-audit`
+- `prompt-engineering`
+- `llm-assisted`
+- `guardrails`
+- `testing`
+- `ci`
+- `security`
 
 Quick links
+
 - Project metadata: [pyproject.toml](pyproject.toml)
 - Python version helper: [.python-version](.python-version)
 - Build & test driver: [Makefile](Makefile)
@@ -31,12 +47,12 @@ python -m pip install -U pip
 
 ```bash
 pip install -e .
-pip install pytest httpx
+pip install pytest httpx pytest-asyncio
 # Integration test requirements (only needed to run integration suite):
 pip install testcontainers docker
 ```
 
-3. Run the default test target (unit + architecture checks):
+3. Run the default unit + architecture tests:
 
 ```bash
 make unit
@@ -49,15 +65,18 @@ make integration
 ```
 
 Testing layout
+
 - Unit tests: `abilities/validation/tests/unit/` — fast, no external services required.
-- Architecture tests: `abilities/validation/tests/architecture/` — repository-level rules (no prints, no bare except, no TODO/FIXME, no obvious hardcoded secrets).
-- Integration tests: `abilities/validation/tests/integration/` — ephemeral Ollama container + dynamic prompt evaluations. These tests may pull models on first run and require Docker access.
+- Architecture tests: `abilities/validation/tests/architecture/` — repository-level rules enforced as tests.
+- Integration tests: `abilities/validation/tests/integration/` — optional, LLM-assisted analyses that may pull models and require Docker.
 
 Evaluation harness
-The self-contained prompt evaluation harness and cases live under `abilities/validation/evals/`. Example cases are at [abilities/validation/evals/cases.yaml](abilities/validation/evals/cases.yaml) and are exercised by the integration tests.
+
+The self-contained evaluation harness and cases live under `abilities/validation/evals/`. Example cases are at [abilities/validation/evals/cases.yaml](abilities/validation/evals/cases.yaml) and are exercised by the integration tests when enabled.
 
 Docker & CI notes
-- Integration tests use Testcontainers to manage the Ollama container. CI runners must allow creating Docker containers.
+
+- Integration tests use Testcontainers to manage ephemeral evaluation services. CI runners must allow creating Docker containers or provide an alternate host Docker service.
 - If running in nested CI or a privileged environment, grant access to the host Docker daemon by mounting the Docker socket into the runner:
 
 ```bash
@@ -65,13 +84,12 @@ Docker & CI notes
 docker run -v /var/run/docker.sock:/var/run/docker.sock ...
 ```
 
-- If Docker socket mounting is not permitted, provide a separate service (sibling Docker host) or use privileged runners with Docker-in-Docker support.
-
 Continuous Integration
+
 The repository includes a GitHub Actions workflow at [.github/workflows/ci.yml](.github/workflows/ci.yml) that runs unit/architecture tests on push/PR against `main` and then runs integration tests (when runners allow Docker).
 
 Contributing
+
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and test expectations.
 
-Questions or issues
 If you hit environment issues (Python version mismatch, missing `uv` module, Docker access), please share the failing command and output — the Makefile and this README aim to make the expected commands explicit and reproducible.
