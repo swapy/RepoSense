@@ -5,7 +5,9 @@ from pathlib import Path
 import sys
 
 # Ensure repository root is on sys.path so local `abilities` package imports work
-repo_root = Path(__file__).resolve().parents[3]
+repo_root = Path(__file__).resolve()
+while repo_root != repo_root.parent and not (repo_root / "pyproject.toml").exists():
+    repo_root = repo_root.parent
 sys.path.insert(0, str(repo_root))
 
 import httpx
@@ -77,7 +79,7 @@ async def test_ollama_ephemeral_prompt_injection_resistance():
     ]
 
     container = DockerContainer(OLLAMA_IMAGE)
-    container.with_bind_mount(str(HOST_OLLAMA_CACHE), "/root/.ollama")
+    container.with_volume_mapping(str(HOST_OLLAMA_CACHE), "/root/.ollama", "rw")
     container.with_exposed_ports(OLLAMA_API_PORT)
     container.with_command(ollama_command)
 

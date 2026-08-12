@@ -66,13 +66,13 @@ make integration
 
 Testing layout
 
-- Unit tests: `abilities/validation/tests/unit/` — fast, no external services required.
-- Architecture tests: `abilities/validation/tests/architecture/` — repository-level rules enforced as tests.
-- Integration tests: `abilities/validation/tests/integration/` — optional, LLM-assisted analyses that may pull models and require Docker.
+- Unit tests: `tests/validation/unit/` — fast, no external services required.
+- Architecture tests: `tests/validation/architecture/` — repository-level rules enforced as tests.
+- Integration tests: `tests/validation/integration/` — optional, LLM-assisted analyses that may pull models and require Docker.
 
 Evaluation harness
 
-The self-contained evaluation harness and cases live under `abilities/validation/evals/`. Example cases are at [abilities/validation/evals/cases.yaml](abilities/validation/evals/cases.yaml) and are exercised by the integration tests when enabled.
+The self-contained evaluation harness and cases live under `src/abilities/validation/evals/` and test fixtures are stored under `tests/fixtures/evals/`. Example cases are at [tests/fixtures/evals/cases.yaml](tests/fixtures/evals/cases.yaml) and are exercised by the integration tests when enabled.
 
 Docker & CI notes
 

@@ -4,7 +4,9 @@ from pathlib import Path
 import sys
 
 # Ensure repository root is on sys.path so local `abilities` package imports work
-repo_root = Path(__file__).resolve().parents[3]
+repo_root = Path(__file__).resolve()
+while repo_root != repo_root.parent and not (repo_root / "pyproject.toml").exists():
+    repo_root = repo_root.parent
 sys.path.insert(0, str(repo_root))
 
 import pytest
@@ -22,7 +24,10 @@ def load_cases(path: Path):
 
 @pytest.mark.asyncio
 async def test_prompt_evaluation_harness():
-    cases_path = Path(__file__).resolve().parents[1] / "evals" / "cases.yaml"
+    repo_root = Path(__file__).resolve()
+    while repo_root != repo_root.parent and not (repo_root / "pyproject.toml").exists():
+        repo_root = repo_root.parent
+    cases_path = repo_root / "tests" / "fixtures" / "evals" / "cases.yaml"
     cases = load_cases(cases_path)
 
     container = OllamaContainer(MODEL)

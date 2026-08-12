@@ -19,6 +19,6 @@ dependencies = [
 
 [tool.pytest.ini_options]
 minversion = "8.0"
-testpaths = ["abilities/validation/tests"]
+testpaths = ["tests/validation"]
 python_files = ["test_*.py"]
 addopts = "-q"

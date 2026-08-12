@@ -25,7 +25,7 @@ jobs:
           pip install pytest httpx pytest-asyncio
       - name: Run unit and architecture tests
         run: |
-          pytest -q abilities/validation/tests/unit abilities/validation/tests/architecture
+          pytest -q tests/validation/unit tests/validation/architecture
 
   integration:
     needs: unit
@@ -46,4 +46,18 @@ jobs:
           pip install pytest httpx pytest-asyncio testcontainers docker
       - name: Run integration tests
         run: |
-          pytest -q abilities/validation/tests/integration
+          pytest -q tests/validation/integration
+
+  pages:
+    needs: [unit, integration]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v4
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: ui
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1

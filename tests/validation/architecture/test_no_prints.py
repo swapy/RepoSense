@@ -3,10 +3,12 @@ from pathlib import Path
 
 
 def _py_files():
-    base = Path(__file__).resolve().parents[3]
-    for p in base.rglob("*.py"):
+    repo_root = Path(__file__).resolve()
+    while repo_root != repo_root.parent and not (repo_root / "pyproject.toml").exists():
+        repo_root = repo_root.parent
+    for p in repo_root.rglob("*.py"):
         # skip tests directory
-        if "abilities/validation/tests" in str(p):
+        if "tests/validation" in str(p):
             continue
         yield p
 

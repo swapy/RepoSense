@@ -14,8 +14,8 @@ def find_project_root() -> str:
     return str(p.parents[4])
 
 BASE_DIR = find_project_root()
-RULES_PATH = os.path.join(BASE_DIR, "abilities", "validation", "rules", "guardrails.yaml")
-PROMPT_DIR = os.path.join(BASE_DIR, "abilities", "prompts")
+RULES_PATH = os.path.join(BASE_DIR, "src", "abilities", "validation", "rules", "guardrails.yaml")
+PROMPT_DIR = os.path.join(BASE_DIR, "src", "abilities", "prompts")
 
 def load_yaml(path):
     with open(path, "r", encoding="utf-8") as f:
